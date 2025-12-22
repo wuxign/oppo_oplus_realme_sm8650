@@ -777,7 +777,6 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: write
-      packages: write
       actions: read
       
     steps:

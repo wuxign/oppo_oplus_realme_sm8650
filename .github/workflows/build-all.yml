@@ -213,7 +213,6 @@ jobs:
        needs.build-6-1-128.result == 'success' || needs.build-6-1-134.result == 'success')
     permissions:
       contents: write
-      packages: write
       actions: read
       
     steps:
