@@ -3,7 +3,7 @@ name: 加速版构建 6.1.134 (天玑特供)欧加真OKI内核
 env:
   TZ: Asia/Shanghai
   ANDROID_VERSION: 'android14'
-  KERNEL_VERSION: '6.1'
+  KERNEL_VERSION: '6.1.134'
   KERNEL_NAME: 'android14-11-o-gca13bffobf09'
 
 on:
