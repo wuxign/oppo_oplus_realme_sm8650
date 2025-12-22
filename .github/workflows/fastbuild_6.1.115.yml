@@ -766,6 +766,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: write
       packages: write
