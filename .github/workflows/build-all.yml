@@ -1,0 +1,326 @@
+name: 🚀 统一构建所有版本内核
+
+permissions:
+  contents: write
+  actions: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      ksu_type:
+        description: 'KernelSU分支'
+        required: true
+        type: choice
+        default: 'sukisu'
+        options:
+          - 'sukisu'
+          - 'ksunext'
+          - 'mksu'
+          - 'ksu'
+      susfs_enable:
+        description: '是否开启susfs'
+        required: true
+        type: boolean
+        default: true
+      kpm_enable:
+        description: '是否开启kpm(仅对sukisu生效)'
+        required: true
+        type: boolean
+        default: false
+      lz4_enable:
+        description: '是否安装 lz4 1.10.0+zstd 1.5.7 补丁'
+        required: true
+        type: boolean
+        default: true
+      lz4kd_enable:
+        description: '是否安装 LZ4KD 补丁'
+        required: true
+        type: boolean
+        default: false
+      bbr_enable:
+        description: 'BBR算法(false关闭/true仅加入/default设为默认)'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'false'
+          - 'true'
+          - 'default'
+      better_net:
+        description: '是否开启网络功能拓展配置'
+        required: true
+        type: boolean
+        default: false
+      ssg_enable:
+        description: '是否启用三星SSG IO调度器支持'
+        required: true
+        type: boolean
+        default: true
+      rekernel_enable:
+        description: '是否启用Re-Kernel支持'
+        required: true
+        type: boolean
+        default: false
+      baseband_guard:
+        description: '是否开启内核级基带保护'
+        required: true
+        type: boolean
+        default: true
+      # 选择要构建的版本 - 支持: 57 75 115 118 128 134 或 all
+      build_versions:
+        description: '构建版本(空格分隔,如: 75 57 或 all构建全部)'
+        required: true
+        type: string
+        default: '75'
+      kernel_suffix:
+        description: '自定义内核后缀(留空使用默认)'
+        required: false
+        type: string
+        default: ''
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  # ==================== 6.1.57 ====================
+  build-6-1-57:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '57') }}
+    uses: ./.github/workflows/fastbuild_6.1.57.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 6.1.75 ====================
+  build-6-1-75:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '75') }}
+    uses: ./.github/workflows/fastbuild_6.1.75.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 6.1.115 ====================
+  build-6-1-115:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '115') }}
+    uses: ./.github/workflows/fastbuild_6.1.115.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 6.1.118 ====================
+  build-6-1-118:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '118') }}
+    uses: ./.github/workflows/fastbuild_6.1.118.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 6.1.128 ====================
+  build-6-1-128:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '128') }}
+    uses: ./.github/workflows/fastbuild_6.1.128.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 6.1.134 ====================
+  build-6-1-134:
+    if: ${{ inputs.build_versions == 'all' || contains(inputs.build_versions, '134') }}
+    uses: ./.github/workflows/fastbuild_6.1.134.yml
+    secrets: inherit
+    with:
+      ksu_type: ${{ inputs.ksu_type }}
+      susfs_enable: ${{ inputs.susfs_enable }}
+      kpm_enable: ${{ inputs.kpm_enable }}
+      lz4_enable: ${{ inputs.lz4_enable }}
+      lz4kd_enable: ${{ inputs.lz4kd_enable }}
+      bbr_enable: ${{ inputs.bbr_enable }}
+      better_net: ${{ inputs.better_net }}
+      ssg_enable: ${{ inputs.ssg_enable }}
+      rekernel_enable: ${{ inputs.rekernel_enable }}
+      baseband_guard: ${{ inputs.baseband_guard }}
+      kernel_suffix: ${{ inputs.kernel_suffix }}
+
+  # ==================== 统一发布 ====================
+  release:
+    runs-on: ubuntu-latest
+    needs: 
+      - build-6-1-57
+      - build-6-1-75
+      - build-6-1-115
+      - build-6-1-118
+      - build-6-1-128
+      - build-6-1-134
+    if: |
+      always() && 
+      (needs.build-6-1-57.result == 'success' || needs.build-6-1-57.result == 'skipped') &&
+      (needs.build-6-1-75.result == 'success' || needs.build-6-1-75.result == 'skipped') &&
+      (needs.build-6-1-115.result == 'success' || needs.build-6-1-115.result == 'skipped') &&
+      (needs.build-6-1-118.result == 'success' || needs.build-6-1-118.result == 'skipped') &&
+      (needs.build-6-1-128.result == 'success' || needs.build-6-1-128.result == 'skipped') &&
+      (needs.build-6-1-134.result == 'success' || needs.build-6-1-134.result == 'skipped') &&
+      (needs.build-6-1-57.result == 'success' || needs.build-6-1-75.result == 'success' || 
+       needs.build-6-1-115.result == 'success' || needs.build-6-1-118.result == 'success' ||
+       needs.build-6-1-128.result == 'success' || needs.build-6-1-134.result == 'success')
+    permissions:
+      contents: write
+      packages: write
+      actions: read
+      
+    steps:
+      - name: 下载所有内核工件
+        uses: actions/download-artifact@v4
+        with:
+          path: ./release_zips
+          pattern: Kernel_*
+          merge-multiple: true
+
+      - name: 列出已下载的文件
+        run: |
+          echo "已下载的文件列表:"
+          find ./release_zips -type f -name "*.zip" | sort
+
+      - name: 设置环境变量
+        run: |
+          TIME="$(TZ='Asia/Shanghai' date +'%y%m%d%H%M%S')"
+          TIME_FORM="$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+          echo "TIME=$TIME" >> $GITHUB_ENV
+          echo "TIME_FORM=$TIME_FORM" >> $GITHUB_ENV
+          TAG_HEAD="OPPO+OPlus+Realme-A15-build"
+          echo "TAG_HEAD=$TAG_HEAD" >> $GITHUB_ENV
+          
+          # 确定 KSU 类型名称
+          if [[ "${{ inputs.ksu_type }}" == "sukisu" ]]; then
+            KSU_TYPENAME="SukiSU Ultra"
+          elif [[ "${{ inputs.ksu_type }}" == "ksunext" ]]; then
+            KSU_TYPENAME="KernelSU Next"
+          elif [[ "${{ inputs.ksu_type }}" == "mksu" ]]; then
+            KSU_TYPENAME="MKSU"
+          else
+            KSU_TYPENAME="KernelSU (Official)"
+          fi
+          echo "KSU_TYPENAME=$KSU_TYPENAME" >> $GITHUB_ENV
+          
+          # 构建版本列表
+          VERSIONS=""
+          BUILD_VERSIONS="${{ inputs.build_versions }}"
+          if [[ "$BUILD_VERSIONS" == "all" ]]; then
+            VERSIONS="6.1.57 6.1.75 6.1.115 6.1.118 6.1.128 6.1.134"
+          else
+            if [[ "$BUILD_VERSIONS" == *"57"* ]]; then
+              VERSIONS="${VERSIONS}6.1.57 "
+            fi
+            if [[ "$BUILD_VERSIONS" == *"75"* ]]; then
+              VERSIONS="${VERSIONS}6.1.75 "
+            fi
+            if [[ "$BUILD_VERSIONS" == *"115"* ]]; then
+              VERSIONS="${VERSIONS}6.1.115 "
+            fi
+            if [[ "$BUILD_VERSIONS" == *"118"* ]]; then
+              VERSIONS="${VERSIONS}6.1.118 "
+            fi
+            if [[ "$BUILD_VERSIONS" == *"128"* ]]; then
+              VERSIONS="${VERSIONS}6.1.128 "
+            fi
+            if [[ "$BUILD_VERSIONS" == *"134"* ]]; then
+              VERSIONS="${VERSIONS}6.1.134 "
+            fi
+          fi
+          echo "VERSIONS=$VERSIONS" >> $GITHUB_ENV
+
+      - name: 创建统一发布
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "${{ env.TAG_HEAD }}-${{ env.TIME }}"
+          name: "🚀 ${{ env.KSU_TYPENAME }} 多版本统一构建 - ${{ env.TIME_FORM }}"
+          body: |
+            ### 📱 欧加真 ${{ env.KSU_TYPENAME }} SM8650 通用内核 | 统一构建
+            
+            #### 📦 本次构建包含以下版本:
+            ${{ env.VERSIONS }}
+            
+            #### ⚙️ 构建配置:
+            | 配置项 | 状态 |
+            |--------|------|
+            | KSU分支 | ${{ env.KSU_TYPENAME }} |
+            | susfs支持 | ${{ inputs.susfs_enable && '✅' || '❌' }} |
+            | KPM支持 | ${{ inputs.kpm_enable && '✅' || '❌' }} |
+            | LZ4 1.10.0 + ZSTD | ${{ inputs.lz4_enable && '✅' || '❌' }} |
+            | LZ4KD | ${{ inputs.lz4kd_enable && '✅' || '❌' }} |
+            | 网络功能增强 | ${{ inputs.better_net && '✅' || '❌' }} |
+            | BBR算法 | ${{ inputs.bbr_enable }} |
+            | SSG IO调度器 | ${{ inputs.ssg_enable && '✅' || '❌' }} |
+            | Re-Kernel | ${{ inputs.rekernel_enable && '✅' || '❌' }} |
+            | 基带保护 | ${{ inputs.baseband_guard && '✅' || '❌' }} |
+            
+            #### 📥 管理器下载:
+            - SukiSU Ultra: [下载](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)
+            - KernelSU Next: [下载](https://github.com/KernelSU-Next/KernelSU-Next/releases)
+            - MKSU: [下载](https://github.com/5ec1cff/KernelSU/actions)
+            - KernelSU 原版: [下载](https://github.com/tiann/KernelSU/releases)
+            
+            #### 📋 安装方法:
+            1. 已有Recovery(TWRP): 下载对应版本AnyKernel包，进入Recovery刷入
+            2. 已Root: 使用[HorizonKernelFlasher](https://github.com/libxzr/HorizonKernelFlasher/releases)刷入
+            3. SukiSU用户: 可在管理器中直接刷入
+            
+            #### ⚠️ 注意事项:
+            - 刷写内核有风险，请先备份boot分区！
+            - 请使用[KernelFlasher](https://github.com/capntrips/KernelFlasher)备份
+            - 新版KSU需要配合元模块使用
+            
+            ---
+            🕐 编译时间: ${{ env.TIME_FORM }}
+          draft: false
+          prerelease: false
+          files: |
+            release_zips/*.zip
