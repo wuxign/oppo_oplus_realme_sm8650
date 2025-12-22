@@ -57,6 +57,10 @@ on:
         required: false
         type: string
         default: ''
+      skip_release:
+        required: false
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       ksu_type:
@@ -766,7 +770,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && !inputs.skip_release }}
     permissions:
       contents: write
       actions: read

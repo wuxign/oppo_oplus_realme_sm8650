@@ -99,6 +99,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 6.1.75 ====================
   build-6-1-75:
@@ -117,6 +118,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 6.1.115 ====================
   build-6-1-115:
@@ -135,6 +137,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 6.1.118 ====================
   build-6-1-118:
@@ -153,6 +156,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 6.1.128 ====================
   build-6-1-128:
@@ -171,6 +175,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 6.1.134 ====================
   build-6-1-134:
@@ -189,6 +194,7 @@ jobs:
       rekernel_enable: ${{ inputs.rekernel_enable }}
       baseband_guard: ${{ inputs.baseband_guard }}
       kernel_suffix: ${{ inputs.kernel_suffix }}
+      skip_release: true
 
   # ==================== 统一发布 ====================
   release:
