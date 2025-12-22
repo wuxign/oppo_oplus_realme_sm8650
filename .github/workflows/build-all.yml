@@ -1,4 +1,4 @@
-name: 🚀 统一构建所有版本内核
+name: 统一构建所有版本内核
 
 permissions:
   contents: write
@@ -66,9 +66,9 @@ on:
         required: true
         type: boolean
         default: true
-      # 选择要构建的版本 - 支持: 57 75 115 118 128 134 或 all
+      # 选择要构建的版本 - 支持: 57,75,115,118,128,134 或 all
       build_versions:
-        description: '构建版本(空格分隔,如: 75 57 或 all构建全部)'
+        description: '构建版本(逗号分隔,如: 75,57 或 all构建全部)'
         required: true
         type: string
         default: '75'
@@ -254,26 +254,28 @@ jobs:
           VERSIONS=""
           BUILD_VERSIONS="${{ inputs.build_versions }}"
           if [[ "$BUILD_VERSIONS" == "all" ]]; then
-            VERSIONS="6.1.57 6.1.75 6.1.115 6.1.118 6.1.128 6.1.134"
+            VERSIONS="6.1.57,6.1.75,6.1.115,6.1.118,6.1.128,6.1.134"
           else
             if [[ "$BUILD_VERSIONS" == *"57"* ]]; then
-              VERSIONS="${VERSIONS}6.1.57 "
+              VERSIONS="${VERSIONS}6.1.57,"
             fi
             if [[ "$BUILD_VERSIONS" == *"75"* ]]; then
-              VERSIONS="${VERSIONS}6.1.75 "
+              VERSIONS="${VERSIONS}6.1.75,"
             fi
             if [[ "$BUILD_VERSIONS" == *"115"* ]]; then
-              VERSIONS="${VERSIONS}6.1.115 "
+              VERSIONS="${VERSIONS}6.1.115,"
             fi
             if [[ "$BUILD_VERSIONS" == *"118"* ]]; then
-              VERSIONS="${VERSIONS}6.1.118 "
+              VERSIONS="${VERSIONS}6.1.118,"
             fi
             if [[ "$BUILD_VERSIONS" == *"128"* ]]; then
-              VERSIONS="${VERSIONS}6.1.128 "
+              VERSIONS="${VERSIONS}6.1.128,"
             fi
             if [[ "$BUILD_VERSIONS" == *"134"* ]]; then
-              VERSIONS="${VERSIONS}6.1.134 "
+              VERSIONS="${VERSIONS}6.1.134,"
             fi
+            # 移除末尾逗号
+            VERSIONS="${VERSIONS%,}"
           fi
           echo "VERSIONS=$VERSIONS" >> $GITHUB_ENV
 
@@ -281,45 +283,45 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "${{ env.TAG_HEAD }}-${{ env.TIME }}"
-          name: "🚀 ${{ env.KSU_TYPENAME }} 多版本统一构建 - ${{ env.TIME_FORM }}"
+          name: "${{ env.KSU_TYPENAME }} 多版本统一构建 - ${{ env.TIME_FORM }}"
           body: |
-            ### 📱 欧加真 ${{ env.KSU_TYPENAME }} SM8650 通用内核 | 统一构建
+            ### 欧加真 ${{ env.KSU_TYPENAME }} SM8650 通用内核 | 统一构建
             
-            #### 📦 本次构建包含以下版本:
+            #### 本次构建包含以下版本:
             ${{ env.VERSIONS }}
             
-            #### ⚙️ 构建配置:
+            #### 构建配置:
             | 配置项 | 状态 |
             |--------|------|
             | KSU分支 | ${{ env.KSU_TYPENAME }} |
-            | susfs支持 | ${{ inputs.susfs_enable && '✅' || '❌' }} |
-            | KPM支持 | ${{ inputs.kpm_enable && '✅' || '❌' }} |
-            | LZ4 1.10.0 + ZSTD | ${{ inputs.lz4_enable && '✅' || '❌' }} |
-            | LZ4KD | ${{ inputs.lz4kd_enable && '✅' || '❌' }} |
-            | 网络功能增强 | ${{ inputs.better_net && '✅' || '❌' }} |
+            | susfs支持 | ${{ inputs.susfs_enable && '是' || '否' }} |
+            | KPM支持 | ${{ inputs.kpm_enable && '是' || '否' }} |
+            | LZ4 1.10.0 + ZSTD | ${{ inputs.lz4_enable && '是' || '否' }} |
+            | LZ4KD | ${{ inputs.lz4kd_enable && '是' || '否' }} |
+            | 网络功能增强 | ${{ inputs.better_net && '是' || '否' }} |
             | BBR算法 | ${{ inputs.bbr_enable }} |
-            | SSG IO调度器 | ${{ inputs.ssg_enable && '✅' || '❌' }} |
-            | Re-Kernel | ${{ inputs.rekernel_enable && '✅' || '❌' }} |
-            | 基带保护 | ${{ inputs.baseband_guard && '✅' || '❌' }} |
+            | SSG IO调度器 | ${{ inputs.ssg_enable && '是' || '否' }} |
+            | Re-Kernel | ${{ inputs.rekernel_enable && '是' || '否' }} |
+            | 基带保护 | ${{ inputs.baseband_guard && '是' || '否' }} |
             
-            #### 📥 管理器下载:
+            #### 管理器下载:
             - SukiSU Ultra: [下载](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)
             - KernelSU Next: [下载](https://github.com/KernelSU-Next/KernelSU-Next/releases)
             - MKSU: [下载](https://github.com/5ec1cff/KernelSU/actions)
             - KernelSU 原版: [下载](https://github.com/tiann/KernelSU/releases)
             
-            #### 📋 安装方法:
+            #### 安装方法:
             1. 已有Recovery(TWRP): 下载对应版本AnyKernel包，进入Recovery刷入
             2. 已Root: 使用[HorizonKernelFlasher](https://github.com/libxzr/HorizonKernelFlasher/releases)刷入
             3. SukiSU用户: 可在管理器中直接刷入
             
-            #### ⚠️ 注意事项:
+            #### 注意事项:
             - 刷写内核有风险，请先备份boot分区！
             - 请使用[KernelFlasher](https://github.com/capntrips/KernelFlasher)备份
             - 新版KSU需要配合元模块使用
             
             ---
-            🕐 编译时间: ${{ env.TIME_FORM }}
+            编译时间: ${{ env.TIME_FORM }}
           draft: false
           prerelease: false
           files: |
